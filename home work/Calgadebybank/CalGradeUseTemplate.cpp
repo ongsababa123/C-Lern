@@ -5,10 +5,10 @@ using namespace std;
 void inputgrade(int &classroom , int &homework , int &test, int &midterm , int &final);
 
 template<class sumtotal>
-sumtotal totalscore(sumtotal classroom, sumtotal homework, sumtotal test, sumtotal midterm, sumtotal final);
+sumtotal totalscore(sumtotal classroom, sumtotal homework, sumtotal test, sumtotal midterm, sumtotal final, sumtotal &total;);
 
-template<class outputGrad1>
-string grade1(int total);
+template<class T , class P>
+T sum(P total[]);
 
 int main(){
 	int std;
@@ -24,7 +24,7 @@ int main(){
 		cout << " Student number " << i <<endl;
 		inputgrade(classroom[i],homework[i],test[i],midterm[i],final[i]);
 		cout <<" Total Score "<< totalscore<int>(classroom[i],homework[i],test[i],midterm[i],final[i]);cout <<endl;
-		cout <<" Grade type [1] "<< grade1<string>(total[i]);
+		cout <<" Grade type [1] "<< sum<string>(total[i]);
 		cout <<endl;
 		cout <<" **************************** "<<endl;
 	}
@@ -40,15 +40,13 @@ void inputgrade(int &classroom , int &homework , int &test, int &midterm , int &
 }
 
 template<class sumtotal>
-sumtotal totalscore(sumtotal classroom, sumtotal homework, sumtotal test, sumtotal midterm, sumtotal final){
-	sumtotal total;
+sumtotal totalscore(sumtotal classroom, sumtotal homework, sumtotal test, sumtotal midterm, sumtotal final, sumtotal &total;){
 	total = classroom + homework + test + midterm + final;
 	return(total);
 }
 
-template<class outputGrad1>
-string grade1(int total){
-	string Grade;
+template<class T , class P>
+T sum(P total[],string Grade){
 	if(total >= 80){
         Grade = "A"; 
     }else if (total >= 75){
