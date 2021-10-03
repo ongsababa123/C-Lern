@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    int number,colum,n,count;
+    int number,n;
     cout << "Enter an Integer : "; cin>>number;
     n = number-2;
 
@@ -15,9 +15,9 @@ int main()
     cout <<endl;
 
  
-    for(count = 1; count <= n; count++){
+    for(int i = 1; i <= n; i++){
     cout << "*";
-    for (colum = 1; colum <= n; colum++){
+    for (int i = 1; i <= n; i++){
         cout << " ";
     }
     cout << "*";
