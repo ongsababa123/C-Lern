@@ -4,11 +4,11 @@
 using namespace std;
 
 void timeselect(int &time);
-void timedisplay (int time);
+void timedisplay(int time);
 void cinemaselect(int &cinema);
 void menuselect(int &menu);
 void chairshow(int chair[5][10]);
-void selectchair(int chair[5][10]);
+void selectchair(int chair[5][10],int time);
 
 int main()
 {
@@ -81,10 +81,12 @@ int main()
     }
 
     if (time == 1)
-    {   
+    {
         timedisplay(time);
-        selectchair(chair);
+        selectchair(chair,time);
     }
+
+    chairshow(chair);
 }
 
 void menuselect(int &menu)
@@ -111,23 +113,21 @@ void timeselect(int &time)
     cout << "Select : ";
     cin >> time;
     cout << endl;
-
-   
-    
 }
 
-void timedisplay (int time){
-     if (time == 1)
+void timedisplay(int time)
+{
+    if (time == 1)
     {
-        cout <<setw(30)<< "You Select Time 10:00 " <<endl;
+        cout << setw(30) << "You Select Time 10:00 " << endl;
     }
     if (time == 2)
     {
-        cout <<setw(30)<< "You Select Time 13:00 " <<endl;
+        cout << setw(30) << "You Select Time 13:00 " << endl;
     }
     if (time == 3)
     {
-        cout <<setw(30)<< "You Select Time 16:00 " <<endl;
+        cout << setw(30) << "You Select Time 16:00 " << endl;
     }
 }
 
@@ -167,10 +167,10 @@ void chairshow(int chair[5][10])
     cout << "==========================================" << endl;
 }
 
-void selectchair(int chair[5][10])
+void selectchair(int chair[5][10],int time)
 {
 
-    int row, col,cols, round = 0, money = 120, total;
+    int row, col, cols, round = 0, money = 120, total;
     char check, rowrow, o, ok;
     do
     {
@@ -180,25 +180,52 @@ void selectchair(int chair[5][10])
             {
                 if (round > 0)
                 {
-                    cout << setw(30) << "Continue ? (Y/y) : ";
+                    cout << setw(30) << "Continue ? (Y/n) : ";
                     cin >> check;
                     cout << setw(30) << "-----------------------" << endl;
                 }
 
                 do
-                {
-
+                { 
+                    
+                    do{
                     chairshow(chair);
-                    cout << "Enter number 00 to cancel : " <<endl;
+                    cout << "Enter number 00 to cancel : " << endl;
                     cout << "Enter Select Chair : ";
                     cin >> rowrow >> col;
-                    col = col - 1;
-                    cols = col+1;
-                    if (rowrow == 0 || cols == 0)
+                    cout <<endl;
+                    if (rowrow == 0 || col == 0)
                     {
-                        return ;
+                        cout << " Are you cancel sure ? y/n "; cin >>ok;
+                        cout <<endl;
+                        if (ok == 'y' || ok == 'Y')
+                        {
+                            for (int r = 0; r < 5; r++)
+                            {
+                                o = 'A';
+                                for (int c = 0; c < 10; c++)
+                                {
+                                    if (chair[r][c] == '--')
+                                    {
+                                        chair[r][c] = 0;
+                                        
+                                        
+                                    }
+                                    else
+                                    {
+                                        cout << setw(3) << char(o + r) << c + 1;
+                                    }
+                                }
+                                cout << endl;
+                                return;
+                            }
+                        }
                     }
+                    }while(ok == 'n' || ok == 'N');
+                    col = col - 1;
+                    cols = col + 1;
                     
+
                     if (rowrow == 'A' || rowrow == 'a')
                         row = 0;
                     if (rowrow == 'B' || rowrow == 'b')
@@ -221,8 +248,10 @@ void selectchair(int chair[5][10])
                     }
                 } while (chair[row][col] == 1);
                 chair[row][col] = 1;
-
+                
+                
                 chairshow(chair);
+                timedisplay(time);
                 cout << setw(30) << " You Select Chair = " << rowrow << cols << endl;
                 cout << setw(30) << "Are you sure Y/N : ";
                 cin >> ok;
