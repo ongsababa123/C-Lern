@@ -86,7 +86,6 @@ int main()
         selectchair(chair,time);
     }
 
-    chairshow(chair);
 }
 
 void menuselect(int &menu)
@@ -200,16 +199,15 @@ void selectchair(int chair[5][10],int time)
                         cout <<endl;
                         if (ok == 'y' || ok == 'Y')
                         {
-                            for (int r = 0; r < 5; r++)
+                           for (int r = 0; r < 5; r++)
                             {
                                 o = 'A';
                                 for (int c = 0; c < 10; c++)
                                 {
-                                    if (chair[r][c] == '--')
+                                    if (chair[r][c] == 1)
                                     {
                                         chair[r][c] = 0;
-                                        
-                                        
+                                        cout << setw(3) << char(o + r) << c + 1;
                                     }
                                     else
                                     {
@@ -217,8 +215,11 @@ void selectchair(int chair[5][10],int time)
                                     }
                                 }
                                 cout << endl;
-                                return;
+                        
                             }
+                            cout << setw(30) << " Cancel " << endl;
+                            chairshow(chair);
+                            return;
                         }
                     }
                     }while(ok == 'n' || ok == 'N');
