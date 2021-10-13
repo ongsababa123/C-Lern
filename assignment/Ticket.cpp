@@ -11,25 +11,25 @@ void cinemadisplay(int cinema);
 void menuselect(int &menu);
 void selectchair(int chair[5][10], int time, int cinema);
 
-void chaircount(int chair[5][10]);
+int chaircount(int chair[5][10], int &n);
 
 int main()
 {
-    int cinema, time, menu, chaircol;
+    int cinema, time, menu, chaircol, n;
     int chairrow;
     char exit;
     string ok;
-    int chair1_1[5][10];
-    int chair1_2[5][10];
-    int chair1_3[5][10];
+    int chair1_1[5][10] = {0};
+    int chair1_2[5][10] = {0};
+    int chair1_3[5][10] = {0};
 
-    int chair2_1[5][10];
-    int chair2_2[5][10];
-    int chair2_3[5][10];
+    int chair2_1[5][10] = {0};
+    int chair2_2[5][10] = {0};
+    int chair2_3[5][10] = {0};
 
-    int chair3_1[5][10];
-    int chair3_2[5][10];
-    int chair3_3[5][10];
+    int chair3_1[5][10] = {0};
+    int chair3_2[5][10] = {0};
+    int chair3_3[5][10] = {0};
 
     do
     {
@@ -38,32 +38,62 @@ int main()
 
             menuselect(menu);
 
-            switch (menu)
+            if (menu == 1)
             {
-
-            case 1:
                 cinemaselect(cinema);
-                break;
-
-            case 2:
-                cout << " Cinema 1 Time 10:00 "; chaircount(chair1_1); cout <<endl;
-                cout << " Cinema 1 Time 13:00 "; chaircount(chair1_2); cout <<endl;
-                cout << " Cinema 1 Time 16:00 "; chaircount(chair1_3); cout <<endl;
-
-                cout << " Cinema 2 Time 10:00 "; chaircount(chair2_1); cout <<endl;
-                cout << " Cinema 2 Time 13:00 "; chaircount(chair2_2); cout <<endl;
-                cout << " Cinema 2 Time 16:00 "; chaircount(chair2_3); cout <<endl;
-
-                cout << " Cinema 3 Time 10:00 "; chaircount(chair3_1); cout <<endl;
-                cout << " Cinema 3 Time 13:00 "; chaircount(chair3_2); cout <<endl;
-                cout << " Cinema 3 Time 16:00 "; chaircount(chair3_3); cout <<endl;
-                return 0;
-                break;
-
-            default:
-                break;
             }
 
+            if (menu == 2)
+            {
+                ofstream fout("Report.txt");
+
+                cout << " Cinema 1 Time 10:00 ";
+                chaircount(chair1_1, n);
+                cout << endl;
+                fout << " Cinema 1 Time 10:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 1 Time 13:00 ";
+                chaircount(chair1_2, n);
+                cout << endl;
+                fout << " Cinema 1 Time 13:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 1 Time 16:00 ";
+                chaircount(chair1_3, n);
+                cout << endl;
+                fout << " Cinema 1 Time 16:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 2 Time 10:00 ";
+                chaircount(chair2_1, n);
+                cout << endl;
+                fout << " Cinema 2 Time 10:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 2 Time 13:00 ";
+                chaircount(chair2_2, n);
+                cout << endl;
+                fout << " Cinema 2 Time 13:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 2 Time 16:00 ";
+                chaircount(chair2_3, n);
+                cout << endl;
+                fout << " Cinema 2 Time 16:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 3 Time 10:00 ";
+                chaircount(chair3_1, n);
+                cout << endl;
+                fout << " Cinema 3 Time 10:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 3 Time 13:00 ";
+                chaircount(chair3_2, n);
+                cout << endl;
+                fout << " Cinema 3 Time 13:00 Chair Reserve = " << n << endl;
+
+                cout << " Cinema 3 Time 16:00 ";
+                chaircount(chair3_3, n);
+                cout << endl;
+                fout << " Cinema 3 Time 16:00 Chair Reserve = " << n << endl;
+                fout.close();
+                return 0;
+            }
             /*-------------------------Select Cinema------------*/
             switch (cinema)
             {
@@ -256,120 +286,36 @@ void cinemaselect(int &cinema)
 
 void selectchair(int chair[5][10], int time, int cinema)
 {
-    int row, col, cols, round = 0, money = 120, total;
+    int row, col, cols, round = 0, money = 120, total, round2 = 1;
     char check, check1, rowrow, o, ok;
+    int backuprow[round2] = {0};
+    int backupcol[round2] = {0};
+    for (int i = 0; i < round2; i++)
+    {
+        backuprow[i] = 0;
+        backupcol[i] = 0;
+    }
 
     do
     {
-
-        do
+        for (int i = 0; i < round2;)
         {
             do
             {
+
                 do
                 {
-
                     do
                     {
-                        check = 0;
-                        ok = 0;
-                        /*chairshow(chair, time);*/
-                        cinemadisplay(cinema);
-                        timedisplay(time);
-                        for (int r = 0; r < 5; r++)
-                        {
-                            o = 'A';
-                            for (int c = 0; c < 10; c++)
-                            {
-                                if (chair[r][c] == 1)
-                                {
-                                    cout << setw(4) << "--";
-                                }
-                                else
-                                {
-                                    cout << setw(3) << char(o + r) << c + 1;
-                                }
-                            }
-                            cout << endl;
-                        }
-                        cout << "Enter 0 to cancel " << endl;
-                        cout << "Enter p to PAY " << endl;
-                        cout << "Enter q to exit " << endl;
-                        cout << "Enter Select Chair : ";
-                        cin >> rowrow;
-                        cout << endl;
-                        if (rowrow == 'q')
-                        {
-                            if (round == 0)
-                            {
-                                return;
-                            }
-                            if (round > 0)
-                            {
-                                cout << setw(35) << " !You are not pay chair! " << endl;
-                                cout << " Are you cancel Chair ? y/n : ";
-                                cin >> ok;
-                                cout << endl;
 
-                                if (ok == 'y' || ok == 'Y')
-                                {
-                                    for (int r = 0; r < 5; r++)
-                                    {
-                                        o = 'A';
-                                        for (int c = 0; c < 10; c++)
-                                        {
-                                            if (chair[r][c] == 1)
-                                            {
-                                                chair[r][c] = 0;
-                                                cout << setw(3) << char(o + r) << c + 1;
-                                            }
-                                            else
-                                            {
-                                                cout << setw(3) << char(o + r) << c + 1;
-                                            }
-                                        }
-                                        cout << endl;
-                                    }
-                                    return;
-                                }
-                            }
-                        }
-                    } while (ok == 'n' || ok == 'N');
-
-                    if (rowrow == 'p')
-                    {
-                        total = round * money;
-
-                        cout << " Total Chair Select : " << round << endl;
-                        cout << " Price Total = " << total << endl;
-                        return;
-                    }
-                    if (rowrow == '0')
-                    {
-                        cout << " Are you cancel sure ? y/n : ";
-                        cin >> ok;
-                        cout << endl;
-                        if (ok == 'y' || ok == 'Y')
+                        do
                         {
-                            for (int r = 0; r < 5; r++)
-                            {
-                                o = 'A';
-                                for (int c = 0; c < 10; c++)
-                                {
-                                    if (chair[r][c] == 1)
-                                    {
-                                        chair[r][c] = 0;
-                                        cout << setw(3) << char(o + r) << c + 1;
-                                    }
-                                    else
-                                    {
-                                        cout << setw(3) << char(o + r) << c + 1;
-                                    }
-                                }
-                                cout << endl;
-                            }
-                            cout << endl;
-                            cout << setw(25) << " Cancel " << endl;
+
+                            check = 0;
+                            ok = 0;
+                            /*chairshow(chair, time);*/
+                            cinemadisplay(cinema);
+                            timedisplay(time);
                             for (int r = 0; r < 5; r++)
                             {
                                 o = 'A';
@@ -386,69 +332,168 @@ void selectchair(int chair[5][10], int time, int cinema)
                                 }
                                 cout << endl;
                             }
+                            cout << "Enter 0 to cancel " << endl;
+                            cout << "Enter p to PAY " << endl;
+                            cout << "Enter q to exit " << endl;
+                            cout << "Enter Select Chair : ";
+                            cin >> rowrow;
+                            cout << endl;
+                            if (rowrow == 'q')
+                            {
+                                if (round == 0)
+                                {
+                                    return;
+                                }
+                                if (round > 0)
+                                {
+                                    cout << setw(35) << " !You are not pay chair! " << endl;
+                                    cout << " Are you cancel Chair ? y/n : ";
+                                    cin >> ok;
+                                    cout << endl;
+
+                                    if (ok == 'y' || ok == 'Y')
+                                    {
+                                        for (int r = 0; r < 5; r++)
+                                        {
+                                            o = 'A';
+                                            for (int c = 0; c < 10; c++)
+                                            {
+                                                if (chair[r][c] == 1)
+                                                {
+                                                    chair[r][c] = 0;
+                                                    cout << setw(3) << char(o + r) << c + 1;
+                                                }
+                                                else
+                                                {
+                                                    cout << setw(3) << char(o + r) << c + 1;
+                                                }
+                                            }
+                                            cout << endl;
+                                        }
+                                        return;
+                                    }
+                                }
+                            }
+                        } while (ok == 'n' || ok == 'N');
+
+                        if (rowrow == 'p')
+                        {
+                            round2 = round2 - 1;
+                            total = round * money;
+
+                            cout << " Total Chair Select : " << round << endl;
+                            cout << " Price Total = " << total << endl;
+                            for (int i = 0; i < round2; i++)
+                            {
+                                cout << backuprow[i];
+                                cout << backupcol[i] << endl;
+                            }
                             return;
                         }
-                    }
-                } while (ok == 'n' || ok == 'N');
-                cin >> col;
-                col = col - 1;
-                cols = col + 1;
+                        if (rowrow == '0')
+                        {
+                            cout << " Are you cancel sure ? y/n : ";
+                            cin >> ok;
+                            cout << endl;
+                            if (ok == 'y' || ok == 'Y')
+                            {
+                                round2 = round2 - 1;
 
-                if (rowrow == 'A' || rowrow == 'a')
-                    row = 0;
-                if (rowrow == 'B' || rowrow == 'b')
-                    row = 1;
-                if (rowrow == 'C' || rowrow == 'c')
-                    row = 2;
-                if (rowrow == 'D' || rowrow == 'd')
-                    row = 3;
-                if (rowrow == 'E' || rowrow == 'e')
-                    row = 4;
+                                for (int i = 0; i < round2; i++)
+                                {
+                                    cout << backuprow[i];
+                                    cout << backupcol[i] << endl;
 
-                if (chair[row][col] == 1)
-                {
-                    cout << "You are cancel Chair = " << rowrow << cols << endl;
-                    cout << " Are you sure y/n : ";
-                    cin >> ok;
-                    if (ok == 'y' || ok == 'Y')
+                                    chair[backuprow[i]][backupcol[i]] = 0;
+                                }
+                                cout << endl;
+                                cout << setw(25) << " Cancel " << endl;
+                                for (int r = 0; r < 5; r++)
+                                {
+                                    o = 'A';
+                                    for (int c = 0; c < 10; c++)
+                                    {
+                                        if (chair[r][c] == 1)
+                                        {
+                                            cout << setw(4) << "--";
+                                        }
+                                        else
+                                        {
+                                            cout << setw(3) << char(o + r) << c + 1;
+                                        }
+                                    }
+                                    cout << endl;
+                                }
+                                return;
+                            }
+                        }
+                    } while (ok == 'n' || ok == 'N');
+                    cin >> col;
+                    col = col - 1;
+                    cols = col + 1;
+
+                    if (rowrow == 'A' || rowrow == 'a')
+                        row = 0;
+                    if (rowrow == 'B' || rowrow == 'b')
+                        row = 1;
+                    if (rowrow == 'C' || rowrow == 'c')
+                        row = 2;
+                    if (rowrow == 'D' || rowrow == 'd')
+                        row = 3;
+                    if (rowrow == 'E' || rowrow == 'e')
+                        row = 4;
+
+                    if (chair[row][col] == 1)
                     {
-                        cout << " You cancel Chair = " << rowrow << cols << endl;
-                        chair[row][col] = 0;
-                        round = round - 1;
+                        cout << "You are cancel Chair = " << rowrow << cols << endl;
+                        cout << " Are you sure y/n : ";
+                        cin >> ok;
+                        if (ok == 'y' || ok == 'Y')
+                        {
+                            cout << " You cancel Chair = " << rowrow << cols << endl;
+                            chair[row][col] = 0;
+                            round = round - 1;
+                        }
                     }
+                } while (ok == 'y' || ok == 'Y');
+                chair[row][col] = 1;
+
+                for (int r = 0; r < 5; r++)
+                {
+                    o = 'A';
+                    for (int c = 0; c < 10; c++)
+                    {
+                        if (chair[r][c] == 1)
+                        {
+                            cout << setw(4) << "--";
+                        }
+                        else
+                        {
+                            cout << setw(3) << char(o + r) << c + 1;
+                        }
+                    }
+                    cout << endl;
                 }
+                timedisplay(time);
+                cout << setw(30) << " You Select Chair = " << rowrow << cols << endl;
+                cout << setw(30) << "Are you sure Y/N : ";
+                cin >> ok;
+                cout << setw(30) << "-----------------------" << endl;
+                if (ok == 'n' || ok == 'N')
+                {
+                    chair[row][col] = 0;
+                    round = round - 1;
+                    round2 - round2 - 1;
+                };
+                round++;
+                round2++;
+                backuprow[i] = row;
+                backupcol[i] = col;
+                cout << backuprow[i] << endl;
+                cout << backupcol[i] << endl;
+                i++;
             } while (ok == 'y' || ok == 'Y');
-            chair[row][col] = 1;
-
-            for (int r = 0; r < 5; r++)
-            {
-                o = 'A';
-                for (int c = 0; c < 10; c++)
-                {
-                    if (chair[r][c] == 1)
-                    {
-                        cout << setw(4) << "--";
-                    }
-                    else
-                    {
-                        cout << setw(3) << char(o + r) << c + 1;
-                    }
-                }
-                cout << endl;
-            }
-            timedisplay(time);
-            cout << setw(30) << " You Select Chair = " << rowrow << cols << endl;
-            cout << setw(30) << "Are you sure Y/N : ";
-            cin >> ok;
-            cout << setw(30) << "-----------------------" << endl;
-            if (ok == 'n' || ok == 'N')
-            {
-                chair[row][col] = 0;
-                round = round - 1;
-            };
-            round++;
-        } while (ok == 'y' || ok == 'Y');
-
+        }
         cout << setw(30) << "Continue ? y/n : ";
         cin >> check;
         cout << setw(30) << "-----------------------" << endl;
@@ -480,11 +525,10 @@ void selectchair(int chair[5][10], int time, int cinema)
     return;
 }
 
-void chaircount(int chair[5][10])
+int chaircount(int chair[5][10], int &n)
 {
-    ofstream fout("Report.txt");
-    int count = 0;
     char o;
+    n = 0;
     for (int r = 0; r < 5; r++)
     {
         o = 'A';
@@ -492,7 +536,7 @@ void chaircount(int chair[5][10])
         {
             if (chair[r][c] == 1)
             {
-                count++;
+                n++;
             }
             else
             {
@@ -500,9 +544,7 @@ void chaircount(int chair[5][10])
                 c = c + 1;
             }
         }
-         fout << " Chair Reserve = " << count <<endl;
     }
-     fout.close();
-    cout << " Chair Reserve = " << count <<endl;
-    return;
+    cout << " Chair Reserve = " << n << endl;
+    return n;
 }

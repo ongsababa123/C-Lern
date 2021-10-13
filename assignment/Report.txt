@@ -1,5 +1,9 @@
- Chair Reserve = 0
- Chair Reserve = 1
- Chair Reserve = 2
- Chair Reserve = 2
- Chair Reserve = 2
+ Cinema 1 Time 10:00 Chair Reserve = 1
+ Cinema 1 Time 13:00 Chair Reserve = 2
+ Cinema 1 Time 16:00 Chair Reserve = 2
+ Cinema 2 Time 10:00 Chair Reserve = 3
+ Cinema 2 Time 13:00 Chair Reserve = 0
+ Cinema 2 Time 16:00 Chair Reserve = 3
+ Cinema 3 Time 10:00 Chair Reserve = 0
+ Cinema 3 Time 13:00 Chair Reserve = 0
+ Cinema 3 Time 16:00 Chair Reserve = 2
