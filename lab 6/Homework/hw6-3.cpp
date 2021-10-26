@@ -1,66 +1,118 @@
 #include <iostream>
 #include <iomanip>
 #include <time.h>
+#include <cstring>
 
 using namespace std;
 
-void display1(int stu[], int number,float &total);
-void display2(int stu[], int number,float total);
+void getdata(string idnum[],string idname[], float score1[], float score2[], float score3[]);
+void average(float score1[], float score2[], float score3[],float &total[]);
+
 
 int main()
 {
-   int number,student = 500,n;
-   float total;
-   srand((unsigned int)time(0));
+   string idnum[20];
+   string idname[20];
+   float score1[20];
+   float score2[20];
+   float score3[20];
+   float total[20];
 
-   cout << "Enter number student chairman : "; cin >> number;
-   cout << endl;
-   int stu[number] = {};
-   cout << "Number of right student : " << student << endl;
-
-   for (int i = 0; i < number; i++)
-   {
-      stu[i] = rand() % student +1;
-      student = student - stu[i];
-      cout << stu[i] << endl;
-   }
-   display1(stu,number,total);
-   display2(stu,number,total);
-}  
-void display1(int stu[],int number,float &total){
-
-   
-   for (int i = 0; i < number; i++)
-   {
-      total = total + stu[i];
-   }
-   
-   cout << "Number of Votes : "<< total << " = " << (total/500)*100 << "%" <<endl;
-   cout << "Number of not Votes : "<< 500 - total <<" = " << ((500 - total)/500)*100 << "%" <<endl;
+   getdata(idnum,idname,score1,score2,score3);
 }
 
-void display2(int stu[],int number,float total){
-   
-   int n=1;
-   int e;
-   
-   cout <<endl;
-   cout << "Result of election chairman" <<endl;
-   cout << "---------------------------" << endl;
-   cout << "No" << "      " << "Votes" << "    " << "Percent(%)" <<endl;
-   cout << "---------------------------" << endl;
-   
-      for (int i = 0; i < number; i++)
+void getdata(string idnum[],string idname[], float score1[], float score2[], float score3[])
+{
+
+   string id,name;
+   float score;
+   int n = 1;
+
+   for (int i = 0; i < 20; i++)
+   {
+
+      system("cls");
+
+      do
       {
-        cout << n;
-        cout << setw(11) << stu[i];
-        cout << setw(10) << setprecision(3) << float(stu[i]/total)*100 <<endl;
-        n++;
-      }
-      e = total;
-   cout << "---------------------------" << endl;
-   cout << "Total" << "    " << e << "    " << "100.00" <<endl;
+
+         cout << "Enter ID Student No [" << n << "] (5 characters) : ";
+         cin >> id;
+         cout << id.size() << endl;
+         if (id.size() > 5 || id.size() < 5)
+         {
+            cout << "!!!!!Enter ID agin!!!!!" << endl;
+         }
+
+      } while (id.size() > 5 || id.size() < 5);
+      idnum[i] = id;
+
+       do
+      {
+
+         cout << "Enter Name Student No [" << n << "] (20 characters) : ";
+         cin >> name;
+         cout << name.size() << endl;
+         if (name.size() > 20)
+         {
+            cout << "!!!!!Enter ID agin!!!!!" << endl;
+         }
+
+      } while (name.size() > 20);
+      idname[i] = name;
+/*------------------------------------------------------------------------------------*/
+      do
+      {
+
+         cout << "Enter Score 1 student [" << n << "] (max 100 score) : ";
+         cin >> score;
+        
+         if (score > 100)
+         {
+            cout << "!!!!!Enter ID agin!!!!!" << endl;
+         }
+
+      } while (score > 100);
+      score1[i] = score;
+/*---------------------------------------------------------------------------------*/
+       do
+      {
+
+         cout << "Enter Score 2 student [" << n << "] (max 100 score) : ";
+         cin >> score;
+        
+         if (score > 100)
+         {
+            cout << "!!!!!Enter ID agin!!!!!" << endl;
+         }
+
+      } while (score > 100);
+      score2[i] = score;
+/*---------------------------------------------------------------------------------------*/
+       do
+      {
+
+         cout << "Enter Score 3 student [" << n << "] (max 100 score) : ";
+         cin >> score;
+        
+         if (score > 100)
+         {
+            cout << "!!!!!Enter ID agin!!!!!" << endl;
+         }
+
+      } while (score > 100);
+      score3[i] = score;
+
+      n++;
+   }
 }
 
+void average(float score1[], float score2[], float score3[],float &total[]){
+      
+      float total[20];
 
-   
+      for (int i = 0; i < 20; i++)
+      {
+         total[i] = score1[i] + score2[i] + score3[i];
+      }
+}
