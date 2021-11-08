@@ -3,132 +3,155 @@
 
 using namespace std;
 
-void selectsex(float sexx[],int total[15][4]);
-void selectage(float age[]);
-void selectscore1(float Q[]);
-void selectscore2(float Q[]);
+void calcanteen(int data[15][4]);
+
 int main()
 {
-    int total[15][4] = {0};
-    float sexx[2] = {0};
-    float age[4] = {0};
-    float Q1[3] = {0};
-    float Q2[3] = {0};
+    int data[15][4] = {0};
 
-    for (int i = 0; i < 15; i++)
-    {
-            selectsex(sexx,total);
-            selectage(age);
-            selectscore1(Q1);
-            selectscore2(Q2);
+    for (int r = 0; r < 15; r++){
+        for (int c = 0; c < 5;)
+        {
+            system("cls");
+            cout << " Human number [" << r << "]" << endl;
+             cout << " Select Age " <<endl;
+            cout << " 1 = < 18" << endl;
+            cout << " 2 = 18 - 34 " << endl;
+            cout << " 3 = 35+ " << endl;  
+            cout << " Enter Select Age : "; cin>>data[r][c];        
+            c++;
+
+            system("cls");
+            cout << " Human number [" << r << "]" << endl; 
+            cout << " Select Sex " <<endl;
+            cout << " 1 = Female " << endl;
+            cout << " 2 = Male " << endl;
+            cout << " Enter Select Sex : "; cin>>data[r][c];
+            c++;
+
+            system("cls");
+            cout << " Human number [" << r << "]" << endl; 
+            cout << " Select score canteen " <<endl;
+            cout << " 1 = Good " << endl;
+            cout << " 2 = Bad " << endl;
+            cout << " Enter Select score : "; cin>>data[r][c];
+            c++;
+
+            system("cls");
+            cout << " Human number [" << r << "]" << endl; 
+            cout << " Select score toilet " <<endl;
+            cout << " 1 = Good " << endl;
+            cout << " 2 = Bad " << endl;
+            cout << " Enter Select toilet : "; cin>>data[r][c];
+            c++;
+        } 
     }
-
-    // display
-
-    cout << "---------------------------------------------" << endl;
-    cout << "    "<< "age" << "      " << "sex" << "      " << "canteen" << "      " << "Toilet" << endl;
-    cout << "---------------------------------------------" << endl;
-    return 0;
+    calcanteen(data);
 }
 
-void selectsex(float sexx[],int total[15][4])
+void calcanteen(int data[15][4])
 {
-    int sex = 0;
-    do
-    {
+    int canteen[3][5] = {0};
+    
+    for (int r = 0; r < 16; r++){
+        for (int c = 0; c < 3;){
+            
+            //age 1
+            if (data[r][c] == 1)
+            {
+                canteen[0][0]++;
+                c++;
+                //sex
+                if (data[r][c] == 1)
+                {
+                    canteen[0][1]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[0][2]++;
+                }
+                
+                c++;
+                //score
+                if (data[r][c] == 1)
+                {
+                    canteen[0][3]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[0][4]++;
+                }
+                c++;
+            }
 
-        cout << " Select Sex " << endl;
-        cout << " 1 = Male " << endl;
-        cout << " 2 = Female " << endl;
+            //age 2
+            else if (data[r][c] == 2)
+            {
+                canteen[1][0]++;
+                c++;
+                //sex
+                if (data[r][c] == 1)
+                {
+                    canteen[1][1]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[1][2]++;
+                }
+                
+                c++;
+                //score
+                if (data[r][c] == 1)
+                {
+                    canteen[1][3]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[1][4]++;
+                }
+                c++;
+            }
 
-        cout << " Enter Sex ";
-        cin >> sex;
+              //age 3
+            else if (data[r][c] == 3)
+            {
+                canteen[2][0]++;
+                c++;
+                //sex
+                if (data[r][c] == 1)
+                {
+                    canteen[2][1]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[2][2]++;
+                }
+                
+                c++;
+                //score
+                if (data[r][c] == 1)
+                {
+                    canteen[2][3]++;
+                }
+                else if (data[r][c] == 2)
+                {
+                    canteen[2][4]++;
+                }
+                c++;
+            }    
 
-        total = sex;
-        if (sex == 1)
-        {
-            // male//
-            sexx[0]++;
         }
-        else if (sex == 2)
+    }
+    
+
+    for (int r = 0; r < 4; r++)
+    {
+        for (int c = 0; c < 6; c++)
         {
-            // female//
-            sexx[1]++;
+            
+            cout << canteen[r][c] / 15 << endl;
         }
-        system("cls");
-    } while (sex > 2 || sex < 1);
-}
-
-void selectage(float age[])
-{
-    int age1 = 0;
-    do
-    {
-        system("cls");
-        cout << " Enter number Age ";
-        cin >> age1;
-
-        if (age1 >= 1 && age1 <= 17)
-        {
-            age[0]++;
-        }
-        else if (age1 >= 18 && age1 <= 34)
-        {
-            age[1]++;
-        }
-        else if (age1 >= 35)
-        {
-            age[2]++;
-        }
-    } while (age1 <= 0);
-}
-
-void selectscore1(float Q[])
-{
-    int aa = 0;
-    system("cls");
-    cout << " Select Score " << endl;
-    cout << " 1 = Good " << endl;
-    cout << " 2 = Mid " << endl;
-    cout << " 3 = Bad " << endl;
-
-    cout << " Enter score Canteen : ";
-    cin >> aa;
-    if (aa == 1)
-    {
-        Q[0]++;
+        
     }
-    else if (aa == 2)
-    {
-        Q[1]++;
-    }
-    else if (aa == 3)
-    {
-        Q[2]++;
-    }
-}
-
-void selectscore2(float Q[])
-{
-    int aa = 0;
-    system("cls");
-    cout << " Select Score " << endl;
-    cout << " 1 = Good " << endl;
-    cout << " 2 = Mid " << endl;
-    cout << " 3 = Bad " << endl;
-
-    cout << " Enter score Toilet : ";
-    cin >> aa;
-    if (aa == 1)
-    {
-        Q[0]++;
-    }
-    else if (aa == 2)
-    {
-        Q[1]++;
-    }
-    else if (aa == 3)
-    {
-        Q[2]++;
-    }
+    
 }
